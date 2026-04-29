@@ -907,4 +907,408 @@ accuracy <- mean(predictions == test_data$churn)
 
 <span class="comment"># Load customer data</span>
 data = pd.read_csv(<span class="string">'customer_behavior.csv'</span>)
-features = data[[<span class="string">'annual_spend'</span>, <span class="string">'frequency
+features = data[[<span class="string">'annual_spend'</span>, <span class="string">'frequency'</span>, <span class="string">'recency'</span>]]
+
+<span class="comment"># Standardize features</span>
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(features)
+
+<span class="comment"># Apply K-Means</span>
+kmeans = KMeans(n_clusters=4, random_state=42)
+clusters = kmeans.fit_predict(features_scaled)
+
+<span class="comment"># Add cluster labels to data</span>
+data[<span class="string">'cluster'</span>] = clusters
+
+<span class="comment"># Analyze clusters</span>
+cluster_summary = data.groupby(<span class="string">'cluster'</span>).agg({
+    <span class="string">'annual_spend'</span>: <span class="string">'mean'</span>,
+    <span class="string">'frequency'</span>: <span class="string">'mean'</span>,
+    <span class="string">'recency'</span>: <span class="string">'mean'</span>
+}).round(2)
+
+<span class="function">print</span>(<span class="string">'Cluster Analysis:'</span>)
+<span class="function">print</span>(cluster_summary)</pre>
+                                    </div>
+                                    
+                                    <div id="km-r" class="code-content">
+<pre><span class="comment"># R - K-Means Customer Segmentation</span>
+<span class="keyword">library</span>(cluster)
+<span class="keyword">library</span>(factoextra)
+
+<span class="comment"># Load data</span>
+data <- read.csv(<span class="string">"customer_behavior.csv"</span>)
+features <- data[, c(<span class="string">"annual_spend"</span>, <span class="string">"frequency"</span>, <span class="string">"recency"</span>)]
+
+<span class="comment"># Standardize features</span>
+features_scaled <- scale(features)
+
+<span class="comment"># Apply K-Means</span>
+set.seed(42)
+kmeans_result <- kmeans(features_scaled, centers = 4)
+
+<span class="comment"># Add cluster labels</span>
+data$cluster <- kmeans_result$cluster
+
+<span class="comment"># Analyze clusters</span>
+cluster_summary <- aggregate(. ~ cluster, data = data[, c(<span class="string">"cluster"</span>, <span class="string">"annual_spend"</span>, <span class="string">"frequency"</span>, <span class="string">"recency"</span>)], mean)
+<span class="function">print</span>(cluster_summary)
+
+<span class="comment"># Visualize clusters</span>
+fviz_cluster(kmeans_result, data = features_scaled)</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="visualization" class="tab-content">
+            <div class="category-section">
+                <div class="category-header">
+                    <span class="category-icon">📊</span>
+                    <h2 class="category-title">Data Visualization</h2>
+                </div>
+
+                <div class="algorithm-grid">
+                    <div class="algorithm-card">
+                        <div class="card-header">
+                            <h3>Interactive Dashboards</h3>
+                            <span class="complexity intermediate">Intermediate</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="use-case">
+                                <strong>Use Case:</strong> Creating interactive sales dashboards for executive reporting
+                            </div>
+                            
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="dash-python">Python</button>
+                                        <button class="code-tab" data-target="dash-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="dash">📋 Copy</button>
+                                </div>
+                                
+                                <div class="code-content-wrapper">
+                                    <div id="dash-python" class="code-content active">
+<pre><span class="comment"># Python - Interactive Dashboard with Plotly</span>
+<span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go
+<span class="keyword">from</span> plotly.subplots <span class="keyword">import</span> make_subplots
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Load sales data</span>
+data = pd.read_csv(<span class="string">'sales_data.csv'</span>)
+data[<span class="string">'date'</span>] = pd.to_datetime(data[<span class="string">'date'</span>])
+
+<span class="comment"># Create subplots</span>
+fig = make_subplots(
+    rows=2, cols=2,
+    subplot_titles=(<span class="string">'Sales Trend'</span>, <span class="string">'Regional Performance'</span>, 
+                   <span class="string">'Product Categories'</span>, <span class="string">'Monthly Targets'</span>),
+    specs=[[{<span class="string">"secondary_y"</span>: <span class="keyword">True</span>}, {}],
+           [{<span class="string">"type"</span>: <span class="string">"pie"</span>}, {}]]
+)
+
+<span class="comment"># Sales trend line chart</span>
+monthly_sales = data.groupby(data[<span class="string">'date'</span>].dt.to_period(<span class="string">'M'</span>))[<span class="string">'revenue'</span>].sum()
+fig.add_trace(
+    go.Scatter(x=monthly_sales.index.astype(str), y=monthly_sales.values,
+               mode=<span class="string">'lines+markers'</span>, name=<span class="string">'Revenue'</span>),
+    row=1, col=1
+)
+
+<span class="comment"># Regional bar chart</span>
+regional_data = data.groupby(<span class="string">'region'</span>)[<span class="string">'revenue'</span>].sum()
+fig.add_trace(
+    go.Bar(x=regional_data.index, y=regional_data.values, name=<span class="string">'Regional Sales'</span>),
+    row=1, col=2
+)
+
+<span class="comment"># Update layout and show</span>
+fig.update_layout(height=600, showlegend=<span class="keyword">True</span>, title_text=<span class="string">"Sales Dashboard"</span>)
+fig.show()</pre>
+                                    </div>
+                                    
+                                    <div id="dash-r" class="code-content">
+<pre><span class="comment"># R - Interactive Dashboard with Shiny</span>
+<span class="keyword">library</span>(shiny)
+<span class="keyword">library</span>(plotly)
+<span class="keyword">library</span>(dplyr)
+
+<span class="comment"># Load data</span>
+data <- read.csv(<span class="string">"sales_data.csv"</span>)
+data$date <- as.Date(data$date)
+
+<span class="comment"># Define UI</span>
+ui <- fluidPage(
+  titlePanel(<span class="string">"Sales Dashboard"</span>),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(<span class="string">"region"</span>, <span class="string">"Select Region:"</span>,
+                  choices = c(<span class="string">"All"</span>, unique(data$region)),
+                  selected = <span class="string">"All"</span>)
+    ),
+    
+    mainPanel(
+      plotlyOutput(<span class="string">"salesTrend"</span>),
+      plotlyOutput(<span class="string">"regionalChart"</span>)
+    )
+  )
+)
+
+<span class="comment"># Define server logic</span>
+server <- function(input, output) {
+  
+  filtered_data <- reactive({
+    <span class="keyword">if</span> (input$region == <span class="string">"All"</span>) {
+      data
+    } <span class="keyword">else</span> {
+      data[data$region == input$region, ]
+    }
+  })
+  
+  output$salesTrend <- renderPlotly({
+    monthly_data <- filtered_data() %>%
+      group_by(month = format(date, <span class="string">"%Y-%m"</span>)) %>%
+      summarise(revenue = sum(revenue))
+    
+    p <- plot_ly(monthly_data, x = ~month, y = ~revenue, type = <span class="string">'scatter'</span>, mode = <span class="string">'lines+markers'</span>)
+    p
+  })
+}
+
+<span class="comment"># Run the application</span>
+shinyApp(ui = ui, server = server)</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="data-processing" class="tab-content">
+            <div class="category-section">
+                <div class="category-header">
+                    <span class="category-icon">⚙️</span>
+                    <h2 class="category-title">Data Processing & Transformation</h2>
+                </div>
+
+                <div class="algorithm-grid">
+                    <div class="algorithm-card">
+                        <div class="card-header">
+                            <h3>Data Cleaning Pipeline</h3>
+                            <span class="complexity beginner">Beginner</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="use-case">
+                                <strong>Use Case:</strong> Cleaning messy customer data for analysis
+                            </div>
+                            
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="clean-python">Python</button>
+                                        <button class="code-tab" data-target="clean-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="clean">📋 Copy</button>
+                                </div>
+                                
+                                <div class="code-content-wrapper">
+                                    <div id="clean-python" class="code-content active">
+<pre><span class="comment"># Python - Data Cleaning Pipeline</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># Load raw data</span>
+df = pd.read_csv(<span class="string">'raw_customer_data.csv'</span>)
+
+<span class="function">print</span>(f<span class="string">'Original shape: {df.shape}'</span>)
+<span class="function">print</span>(f<span class="string">'Missing values:\n{df.isnull().sum()}'</span>)
+
+<span class="comment"># 1. Remove duplicates</span>
+df = df.drop_duplicates()
+
+<span class="comment"># 2. Handle missing values</span>
+<span class="comment"># Fill numerical missing values with median</span>
+numeric_columns = df.select_dtypes(include=[np.number]).columns
+df[numeric_columns] = df[numeric_columns].fillna(df[numeric_columns].median())
+
+<span class="comment"># Fill categorical missing values with mode</span>
+categorical_columns = df.select_dtypes(include=[<span class="string">'object'</span>]).columns
+<span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+<span class="comment"># 3. Remove outliers using IQR method</span>
+<span class="keyword">def</span> <span class="function">remove_outliers</span>(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    <span class="keyword">return</span> df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+
+<span class="comment"># Apply outlier removal to revenue column</span>
+df = remove_outliers(df, <span class="string">'annual_revenue'</span>)
+
+<span class="comment"># 4. Standardize text data</span>
+df[<span class="string">'email'</span>] = df[<span class="string">'email'</span>].str.lower().str.strip()
+df[<span class="string">'name'</span>] = df[<span class="string">'name'</span>].str.title().str.strip()
+
+<span class="function">print</span>(f<span class="string">'Cleaned shape: {df.shape}'</span>)
+<span class="function">print</span>(<span class="string">'Data cleaning completed!'</span>)</pre>
+                                    </div>
+                                    
+                                    <div id="clean-r" class="code-content">
+<pre><span class="comment"># R - Data Cleaning Pipeline</span>
+<span class="keyword">library</span>(dplyr)
+<span class="keyword">library</span>(stringr)
+
+<span class="comment"># Load raw data</span>
+df <- read.csv(<span class="string">"raw_customer_data.csv"</span>)
+
+<span class="function">cat</span>(<span class="string">"Original shape:"</span>, dim(df), <span class="string">"\n"</span>)
+<span class="function">cat</span>(<span class="string">"Missing values:\n"</span>)
+<span class="function">print</span>(sapply(df, function(x) sum(is.na(x))))
+
+<span class="comment"># 1. Remove duplicates</span>
+df <- df[!duplicated(df), ]
+
+<span class="comment"># 2. Handle missing values</span>
+<span class="comment"># Function to fill missing values</span>
+fill_missing <- function(x) {
+  <span class="keyword">if</span> (is.numeric(x)) {
+    x[is.na(x)] <- median(x, na.rm = <span class="keyword">TRUE</span>)
+  } <span class="keyword">else</span> {
+    mode_val <- names(sort(table(x), decreasing = <span class="keyword">TRUE</span>))[1]
+    x[is.na(x)] <- mode_val
+  }
+  <span class="keyword">return</span>(x)
+}
+
+df <- df %>% mutate_all(fill_missing)
+
+<span class="comment"># 3. Remove outliers using IQR method</span>
+remove_outliers <- function(x) {
+  Q1 <- quantile(x, 0.25, na.rm = <span class="keyword">TRUE</span>)
+  Q3 <- quantile(x, 0.75, na.rm = <span class="keyword">TRUE</span>)
+  IQR <- Q3 - Q1
+  lower <- Q1 - 1.5 * IQR
+  upper <- Q3 + 1.5 * IQR
+  x >= lower & x <= upper
+}
+
+<span class="comment"># Apply to annual_revenue</span>
+df <- df[remove_outliers(df$annual_revenue), ]
+
+<span class="comment"># 4. Standardize text data</span>
+df$email <- str_to_lower(str_trim(df$email))
+df$name <- str_to_title(str_trim(df$name))
+
+<span class="function">cat</span>(<span class="string">"Cleaned shape:"</span>, dim(df), <span class="string">"\n"</span>)
+<span class="function">cat</span>(<span class="string">"Data cleaning completed!\n"</span>)</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="lab-footer">
+        © 2026 Valesca Bravo — Interactive Lab
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification">✓ Copied to clipboard!</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab navigation
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    const tabContents = document.querySelectorAll('.tab-content');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    document.getElementById(targetTab).classList.add('active');
+                    this.classList.add('active');
+                });
+            });
+            
+            // Card click to toggle code (but not when clicking on code elements)
+            const algorithmCards = document.querySelectorAll('.algorithm-card');
+            algorithmCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.code-example') || e.target.closest('.copy-btn') || e.target.closest('.code-tab')) return;
+                    const codeExample = card.querySelector('.code-example');
+                    if (codeExample) {
+                        const isVisible = codeExample.style.display === 'none' || !codeExample.style.display;
+                        codeExample.style.display = isVisible ? 'block' : 'none';
+                    }
+                });
+            });
+            
+            // Code tab switching
+            const codeTabs = document.querySelectorAll('.code-tab');
+            codeTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const targetId = this.getAttribute('data-target');
+                    const parentCard = this.closest('.algorithm-card');
+                    const codeContents = parentCard.querySelectorAll('.code-content');
+                    codeContents.forEach(content => content.classList.remove('active'));
+                    const allTabs = parentCard.querySelectorAll('.code-tab');
+                    allTabs.forEach(t => t.classList.remove('active'));
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) targetContent.classList.add('active');
+                    this.classList.add('active');
+                });
+            });
+            
+            // Copy button functionality
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            const toast = document.getElementById('toast');
+            
+            function showToast(message) {
+                toast.textContent = message || '✓ Copied to clipboard!';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            }
+            
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const parentCard = this.closest('.algorithm-card');
+                    const activeCodeContent = parentCard.querySelector('.code-content.active');
+                    
+                    if (activeCodeContent) {
+                        const codeText = activeCodeContent.innerText;
+                        navigator.clipboard.writeText(codeText).then(() => {
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '✓ Copied!';
+                            showToast('✓ Code copied to clipboard!');
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                            }, 1500);
+                        }).catch(err => {
+                            console.error('Failed to copy:', err);
+                            showToast('✗ Failed to copy');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
