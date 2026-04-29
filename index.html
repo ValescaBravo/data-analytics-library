@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Analytics Learning Library</title>
+    <title>Data Analytics Learning Library | Valesca Bravo</title>
+    <!-- Google Fonts: DM Sans + DM Serif Display + DM Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,71 +13,129 @@
             box-sizing: border-box;
         }
 
+        /* Custom Scrollbar - Navy Dark */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09071a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #13d6c1;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0a9a88;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #09071a;
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            color: #e2e4ec;
+            line-height: 1.5;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            background: #09071a;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
 
+        /* Hero Header with Navy Gradient + Grid Pattern */
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            padding: 40px;
+            background: linear-gradient(135deg, #0d0430, #1d085e, #0d3b38);
+            padding: 50px 40px;
             text-align: center;
-            color: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(19,214,193,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(19,214,193,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #13d6c1;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-family: 'DM Mono', monospace;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .back-link:hover {
+            color: #0a9a88;
+            transform: translateX(-4px);
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
         }
 
         .header p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
         }
 
+        /* Navigation Tabs */
         .nav-tabs {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
+            background: #0d0b1e;
+            border-bottom: 1px solid #1e1e38;
             overflow-x: auto;
+            gap: 5px;
+            padding: 0 20px;
         }
 
         .nav-tab {
-            padding: 15px 25px;
-            background: none;
+            padding: 16px 24px;
+            background: transparent;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
+            font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
             white-space: nowrap;
+            color: #a0a0b0;
         }
 
         .nav-tab:hover {
-            background: #e9ecef;
+            background: rgba(19, 214, 193, 0.1);
+            color: #13d6c1;
         }
 
         .nav-tab.active {
-            background: white;
-            border-bottom-color: #4facfe;
-            color: #4facfe;
+            background: #09071a;
+            border-bottom-color: #13d6c1;
+            color: #13d6c1;
         }
 
+        /* Tab Content */
         .tab-content {
             display: none;
             padding: 40px;
@@ -91,17 +151,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Algorithm Grid */
         .algorithm-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
             margin-bottom: 30px;
         }
 
+        /* Cards */
         .algorithm-card {
-            background: white;
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
+            background: #0d0b1e;
+            border-radius: 16px;
+            border: 1px solid #1e1e38;
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -109,140 +171,219 @@
 
         .algorithm-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-color: #4facfe;
+            box-shadow: 0 12px 28px rgba(19, 214, 193, 0.18);
+            border-color: #13d6c1;
         }
 
         .card-header {
-            padding: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-bottom: 1px solid #dee2e6;
+            padding: 24px;
+            background: #0a0818;
+            border-bottom: 1px solid #1e1e38;
         }
 
         .card-header h3 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-            font-size: 1.3rem;
+            color: #13d6c1;
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+            font-family: 'DM Serif Display', serif;
         }
 
         .card-header .complexity {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 500;
+            font-family: 'DM Mono', monospace;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .complexity.beginner { background: #d4edda; color: #155724; }
-        .complexity.intermediate { background: #fff3cd; color: #856404; }
-        .complexity.advanced { background: #f8d7da; color: #721c24; }
+        .complexity.beginner { 
+            background: rgba(19, 214, 193, 0.2); 
+            color: #13d6c1; 
+            border: 1px solid rgba(19, 214, 193, 0.3);
+        }
+        .complexity.intermediate { 
+            background: rgba(255, 193, 7, 0.2); 
+            color: #ffc107; 
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        .complexity.advanced { 
+            background: rgba(220, 53, 69, 0.2); 
+            color: #dc3545; 
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
 
         .card-body {
-            padding: 20px;
+            padding: 24px;
         }
 
         .use-case {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #4facfe;
-        }
-
-        .code-example {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 20px;
+            background: #0a0818;
+            padding: 16px;
             border-radius: 10px;
             margin: 15px 0;
-            overflow-x: auto;
-            font-family: 'Fira Code', Monaco, 'Cascadia Code', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            border-left: 4px solid #13d6c1;
+            font-size: 0.95rem;
+        }
+
+        /* Code Examples - Dark Theme */
+        .code-example {
+            background: #060510;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 1px solid #1e1e38;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #0a0818;
+            border-bottom: 1px solid #1e1e38;
+        }
+
+        .copy-btn {
+            background: #1d085e;
+            border: 1px solid #13d6c1;
+            color: #13d6c1;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-family: 'DM Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #13d6c1;
+            color: #1d085e;
+        }
+
+        .copy-btn.copied {
+            background: #13d6c1;
+            color: #1d085e;
         }
 
         .code-tabs {
             display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #dee2e6;
+            margin: 0;
+            background: #0a0818;
+            padding: 0 16px;
+            gap: 5px;
         }
 
         .code-tab {
             padding: 10px 20px;
-            background: #f8f9fa;
+            background: transparent;
             border: none;
             cursor: pointer;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            margin-right: 5px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: #a0a0b0;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .code-tab:hover {
+            color: #13d6c1;
         }
 
         .code-tab.active {
-            background: #4facfe;
-            color: white;
+            color: #13d6c1;
+            border-bottom-color: #13d6c1;
+        }
+
+        .code-content-wrapper {
+            padding: 20px;
+            overflow-x: auto;
         }
 
         .code-content {
             display: none;
+            font-family: 'DM Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .code-content.active {
             display: block;
         }
 
-        .python { color: #3776ab; }
-        .r-lang { color: #276dc3; }
-        .comment { color: #6a994e; }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Syntax Highlighting */
+        .comment { color: #13d6c1; opacity: 0.6; font-style: italic; }
         .string { color: #ce9178; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
 
-        .progress-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        /* Quick Reference */
+        .quick-reference {
+            background: #0d0b1e;
+            border-radius: 16px;
             padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
+            margin: 20px 0;
+            border: 1px solid #1e1e38;
         }
 
-        .progress-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: conic-gradient(#4facfe 0deg 216deg, #e9ecef 216deg 360deg);
+        .quick-reference h4 {
+            color: #13d6c1;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            position: relative;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
         }
 
-        .progress-circle::before {
-            content: '60%';
-            position: absolute;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2c3e50;
+        .quick-reference h4::before {
+            content: "⚡";
+            margin-right: 12px;
         }
 
-        .skill-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
         }
 
-        .skill-badge {
-            padding: 8px 16px;
-            background: #4facfe;
-            color: white;
-            border-radius: 20px;
+        .reference-item {
+            padding: 18px;
+            background: #0a0818;
+            border-radius: 12px;
+            border-left: 4px solid #13d6c1;
+            transition: all 0.2s ease;
+        }
+
+        .reference-item:hover {
+            transform: translateX(6px);
+            border-left-color: #0a9a88;
+        }
+
+        .reference-item strong {
+            color: #13d6c1;
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'DM Mono', monospace;
             font-size: 0.9rem;
-            font-weight: 500;
         }
 
+        .reference-item small {
+            color: #a0a0b0;
+            font-size: 0.85rem;
+        }
+
+        /* Category Header */
         .category-section {
             margin-bottom: 40px;
         }
@@ -250,106 +391,134 @@
         .category-header {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
+            margin-bottom: 30px;
+            padding: 24px;
+            background: linear-gradient(135deg, #0d0430, #1d085e);
+            border-radius: 16px;
+            border: 1px solid rgba(19, 214, 193, 0.2);
         }
 
         .category-icon {
-            font-size: 2rem;
-            margin-right: 15px;
+            font-size: 2.5rem;
+            margin-right: 18px;
         }
 
         .category-title {
             font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .quick-reference {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-        }
-
-        .quick-reference h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .quick-reference h4::before {
-            content: "⚡";
-            margin-right: 10px;
-        }
-
-        .reference-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .reference-item {
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            border-left: 4px solid #4facfe;
-            transition: transform 0.2s ease;
-        }
-
-        .reference-item:hover {
-            transform: translateX(5px);
-        }
-
-        .reference-item strong {
-            color: #2c3e50;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .export-section {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 15px;
-            margin-top: 30px;
-        }
-
-        .export-btn {
-            background: white;
-            color: #4facfe;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
             font-weight: 600;
-            cursor: pointer;
+            font-family: 'DM Serif Display', serif;
+            color: #13d6c1;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            background: #0d0b1e;
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 1px solid #1e1e38;
+        }
+
+        .stats-item {
+            text-align: center;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'DM Mono', monospace;
+            color: #13d6c1;
+        }
+
+        .stats-label {
+            font-size: 0.85rem;
+            color: #a0a0b0;
+            margin-top: 4px;
+        }
+
+        .skill-badge {
+            padding: 8px 18px;
+            background: rgba(19, 214, 193, 0.15);
+            color: #13d6c1;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'DM Mono', monospace;
+            border: 1px solid rgba(19, 214, 193, 0.3);
+        }
+
+        /* Footer */
+        .lab-footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 40px 20px 50px;
+            font-family: 'DM Mono', monospace;
+            border-top: 1px solid #1e1e38;
+            margin-top: 20px;
+        }
+
+        /* Toast Notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #13d6c1;
+            color: #1d085e;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
             transition: all 0.3s ease;
+            pointer-events: none;
         }
 
-        .export-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .algorithm-grid {
                 grid-template-columns: 1fr;
             }
             
             .nav-tabs {
-                flex-direction: column;
+                flex-direction: row;
+                overflow-x: auto;
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .tab-content {
                 padding: 20px;
+            }
+
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .category-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .stats-banner {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -357,7 +526,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="https://valescabravo.github.io/" style="display:inline-block; margin-bottom:16px; color:rgba(255,255,255,0.75); font-size:0.9rem; text-decoration:none;">← Back to Portfolio</a>
+            <a href="https://valescabravo.github.io/lab/" class="back-link">← Back to the Lab</a>
             <h1>📊 Data Analytics Learning Library</h1>
             <p>Master Python & R algorithms with practical, ready-to-use code examples</p>
         </div>
@@ -368,19 +537,21 @@
             <button class="nav-tab" data-tab="machine-learning">🤖 Machine Learning</button>
             <button class="nav-tab" data-tab="visualization">📊 Visualization</button>
             <button class="nav-tab" data-tab="data-processing">⚙️ Data Processing</button>
-            <button class="nav-tab" data-tab="progress">🎯 Progress</button>
         </div>
 
         <div id="overview" class="tab-content active">
-            <div class="progress-section">
-                <h2>Your Analytics Journey</h2>
-                <div class="progress-circle"></div>
-                <p>You've mastered 18 out of 30 core algorithms</p>
-                <div class="skill-badges">
-                    <span class="skill-badge">Python Basics ✓</span>
-                    <span class="skill-badge">R Fundamentals ✓</span>
-                    <span class="skill-badge">Statistical Analysis</span>
-                    <span class="skill-badge">Data Visualization</span>
+            <div class="stats-banner">
+                <div class="stats-item">
+                    <div class="stats-number">30+</div>
+                    <div class="stats-label">Algorithms</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-number">Python & R</div>
+                    <div class="stats-label">Languages</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-number">Ready-to-use</div>
+                    <div class="stats-label">Code Examples</div>
                 </div>
             </div>
 
@@ -425,13 +596,17 @@
                                 <strong>Use Case:</strong> Predicting house prices based on size, location, and features
                             </div>
                             
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="lr-python">Python</button>
-                                    <button class="code-tab" data-target="lr-r">R</button>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="lr-python">Python</button>
+                                        <button class="code-tab" data-target="lr-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="lr">📋 Copy</button>
                                 </div>
                                 
-                                <div id="lr-python" class="code-content active">
+                                <div class="code-content-wrapper">
+                                    <div id="lr-python" class="code-content active">
 <pre><span class="comment"># Python - Linear Regression</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
@@ -452,9 +627,9 @@ model.fit(X_train, y_train)
 <span class="comment"># Make predictions</span>
 predictions = model.predict(X_test)
 <span class="function">print</span>(f<span class="string">'R² Score: {model.score(X_test, y_test):.3f}'</span>)</pre>
-                                </div>
-                                
-                                <div id="lr-r" class="code-content">
+                                    </div>
+                                    
+                                    <div id="lr-r" class="code-content">
 <pre><span class="comment"># R - Linear Regression</span>
 <span class="comment"># Load data</span>
 data <- read.csv(<span class="string">"house_prices.csv"</span>)
@@ -469,6 +644,7 @@ summary(model)
 new_data <- data.frame(size = 2000, bedrooms = 3, location_score = 8.5)
 prediction <- predict(model, new_data)
 <span class="function">print</span>(paste(<span class="string">"Predicted price:"</span>, round(prediction, 2)))</pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -484,13 +660,17 @@ prediction <- predict(model, new_data)
                                 <strong>Use Case:</strong> Understanding relationships between marketing spend and sales
                             </div>
                             
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="corr-python">Python</button>
-                                    <button class="code-tab" data-target="corr-r">R</button>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="corr-python">Python</button>
+                                        <button class="code-tab" data-target="corr-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="corr">📋 Copy</button>
                                 </div>
                                 
-                                <div id="corr-python" class="code-content active">
+                                <div class="code-content-wrapper">
+                                    <div id="corr-python" class="code-content active">
 <pre><span class="comment"># Python - Correlation Analysis</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
@@ -510,9 +690,9 @@ plt.show()
 
 <span class="comment"># Find strongest correlations</span>
 <span class="function">print</span>(correlation_matrix[<span class="string">'sales'</span>].sort_values(ascending=<span class="keyword">False</span>))</pre>
-                                </div>
-                                
-                                <div id="corr-r" class="code-content">
+                                    </div>
+                                    
+                                    <div id="corr-r" class="code-content">
 <pre><span class="comment"># R - Correlation Analysis</span>
 <span class="keyword">library</span>(corrplot)
 
@@ -529,6 +709,7 @@ corrplot(cor_matrix, method = <span class="string">"color"</span>, type = <span 
 <span class="comment"># Display correlation with sales</span>
 sales_cor <- cor_matrix[<span class="string">"sales"</span>, ]
 <span class="function">print</span>(sort(sales_cor, decreasing = <span class="keyword">TRUE</span>))</pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -544,13 +725,17 @@ sales_cor <- cor_matrix[<span class="string">"sales"</span>, ]
                                 <strong>Use Case:</strong> A/B testing to compare conversion rates between two website designs
                             </div>
                             
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="ht-python">Python</button>
-                                    <button class="code-tab" data-target="ht-r">R</button>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="ht-python">Python</button>
+                                        <button class="code-tab" data-target="ht-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="ht">📋 Copy</button>
                                 </div>
                                 
-                                <div id="ht-python" class="code-content active">
+                                <div class="code-content-wrapper">
+                                    <div id="ht-python" class="code-content active">
 <pre><span class="comment"># Python - A/B Test (Two-Sample T-Test)</span>
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 <span class="keyword">from</span> scipy <span class="keyword">import</span> stats
@@ -573,9 +758,9 @@ alpha = 0.05
     <span class="function">print</span>(<span class="string">'Reject null hypothesis - significant difference!'</span>)
 <span class="keyword">else</span>:
     <span class="function">print</span>(<span class="string">'Fail to reject null hypothesis'</span>)</pre>
-                                </div>
-                                
-                                <div id="ht-r" class="code-content">
+                                    </div>
+                                    
+                                    <div id="ht-r" class="code-content">
 <pre><span class="comment"># R - A/B Test (Two-Sample T-Test)</span>
 <span class="comment"># Sample data: conversion rates</span>
 group_a <- c(0.12, 0.15, 0.11, 0.13, 0.14, 0.10, 0.16, 0.12)
@@ -597,6 +782,7 @@ alpha <- 0.05
 } <span class="keyword">else</span> {
   <span class="function">cat</span>(<span class="string">"No significant difference found.\n"</span>)
 }</pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -623,13 +809,17 @@ alpha <- 0.05
                                 <strong>Use Case:</strong> Predicting customer churn with high accuracy and feature importance
                             </div>
                             
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="rf-python">Python</button>
-                                    <button class="code-tab" data-target="rf-r">R</button>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="rf-python">Python</button>
+                                        <button class="code-tab" data-target="rf-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="rf">📋 Copy</button>
                                 </div>
                                 
-                                <div id="rf-python" class="code-content active">
+                                <div class="code-content-wrapper">
+                                    <div id="rf-python" class="code-content active">
 <pre><span class="comment"># Python - Random Forest for Customer Churn</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
@@ -656,9 +846,9 @@ accuracy = accuracy_score(y_test, predictions)
 <span class="function">print</span>(<span class="string">'\nFeature Importance:'</span>)
 <span class="keyword">for</span> feature, importance <span class="keyword">in</span> zip(X.columns, rf_model.feature_importances_):
     <span class="function">print</span>(f<span class="string">'{feature}: {importance:.3f}'</span>)</pre>
-                                </div>
-                                
-                                <div id="rf-r" class="code-content">
+                                    </div>
+                                    
+                                    <div id="rf-r" class="code-content">
 <pre><span class="comment"># R - Random Forest for Customer Churn</span>
 <span class="keyword">library</span>(randomForest)
 <span class="keyword">library</span>(caret)
@@ -683,6 +873,7 @@ accuracy <- mean(predictions == test_data$churn)
 <span class="function">print</span>(paste(<span class="string">"Accuracy:"</span>, round(accuracy, 3)))
 <span class="function">print</span>(<span class="string">"Feature Importance:"</span>)
 <span class="function">print</span>(importance(rf_model))</pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -698,13 +889,17 @@ accuracy <- mean(predictions == test_data$churn)
                                 <strong>Use Case:</strong> Customer segmentation for targeted marketing campaigns
                             </div>
                             
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="km-python">Python</button>
-                                    <button class="code-tab" data-target="km-r">R</button>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <div class="code-tabs">
+                                        <button class="code-tab active" data-target="km-python">Python</button>
+                                        <button class="code-tab" data-target="km-r">R</button>
+                                    </div>
+                                    <button class="copy-btn" data-code="km">📋 Copy</button>
                                 </div>
                                 
-                                <div id="km-python" class="code-content active">
+                                <div class="code-content-wrapper">
+                                    <div id="km-python" class="code-content active">
 <pre><span class="comment"># Python - K-Means Customer Segmentation</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans
@@ -712,469 +907,4 @@ accuracy <- mean(predictions == test_data$churn)
 
 <span class="comment"># Load customer data</span>
 data = pd.read_csv(<span class="string">'customer_behavior.csv'</span>)
-features = data[[<span class="string">'annual_spend'</span>, <span class="string">'frequency'</span>, <span class="string">'recency'</span>]]
-
-<span class="comment"># Standardize features</span>
-scaler = StandardScaler()
-features_scaled = scaler.fit_transform(features)
-
-<span class="comment"># Apply K-Means</span>
-kmeans = KMeans(n_clusters=4, random_state=42)
-clusters = kmeans.fit_predict(features_scaled)
-
-<span class="comment"># Add cluster labels to data</span>
-data[<span class="string">'cluster'</span>] = clusters
-
-<span class="comment"># Analyze clusters</span>
-cluster_summary = data.groupby(<span class="string">'cluster'</span>).agg({
-    <span class="string">'annual_spend'</span>: <span class="string">'mean'</span>,
-    <span class="string">'frequency'</span>: <span class="string">'mean'</span>,
-    <span class="string">'recency'</span>: <span class="string">'mean'</span>
-}).round(2)
-
-<span class="function">print</span>(<span class="string">'Cluster Analysis:'</span>)
-<span class="function">print</span>(cluster_summary)</pre>
-                                </div>
-                                
-                                <div id="km-r" class="code-content">
-<pre><span class="comment"># R - K-Means Customer Segmentation</span>
-<span class="keyword">library</span>(cluster)
-<span class="keyword">library</span>(factoextra)
-
-<span class="comment"># Load data</span>
-data <- read.csv(<span class="string">"customer_behavior.csv"</span>)
-features <- data[, c(<span class="string">"annual_spend"</span>, <span class="string">"frequency"</span>, <span class="string">"recency"</span>)]
-
-<span class="comment"># Standardize features</span>
-features_scaled <- scale(features)
-
-<span class="comment"># Apply K-Means</span>
-set.seed(42)
-kmeans_result <- kmeans(features_scaled, centers = 4)
-
-<span class="comment"># Add cluster labels</span>
-data$cluster <- kmeans_result$cluster
-
-<span class="comment"># Analyze clusters</span>
-cluster_summary <- aggregate(. ~ cluster, data = data[, c(<span class="string">"cluster"</span>, <span class="string">"annual_spend"</span>, <span class="string">"frequency"</span>, <span class="string">"recency"</span>)], mean)
-<span class="function">print</span>(cluster_summary)
-
-<span class="comment"># Visualize clusters</span>
-fviz_cluster(kmeans_result, data = features_scaled)</pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="visualization" class="tab-content">
-            <div class="category-section">
-                <div class="category-header">
-                    <span class="category-icon">📊</span>
-                    <h2 class="category-title">Data Visualization</h2>
-                </div>
-
-                <div class="algorithm-grid">
-                    <div class="algorithm-card">
-                        <div class="card-header">
-                            <h3>Interactive Dashboards</h3>
-                            <span class="complexity intermediate">Intermediate</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="use-case">
-                                <strong>Use Case:</strong> Creating interactive sales dashboards for executive reporting
-                            </div>
-                            
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="dash-python">Python</button>
-                                    <button class="code-tab" data-target="dash-r">R</button>
-                                </div>
-                                
-                                <div id="dash-python" class="code-content active">
-<pre><span class="comment"># Python - Interactive Dashboard with Plotly</span>
-<span class="keyword">import</span> plotly.graph_objects <span class="keyword">as</span> go
-<span class="keyword">from</span> plotly.subplots <span class="keyword">import</span> make_subplots
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-
-<span class="comment"># Load sales data</span>
-data = pd.read_csv(<span class="string">'sales_data.csv'</span>)
-data[<span class="string">'date'</span>] = pd.to_datetime(data[<span class="string">'date'</span>])
-
-<span class="comment"># Create subplots</span>
-fig = make_subplots(
-    rows=2, cols=2,
-    subplot_titles=(<span class="string">'Sales Trend'</span>, <span class="string">'Regional Performance'</span>, 
-                   <span class="string">'Product Categories'</span>, <span class="string">'Monthly Targets'</span>),
-    specs=[[{<span class="string">"secondary_y"</span>: <span class="keyword">True</span>}, {}],
-           [{<span class="string">"type"</span>: <span class="string">"pie"</span>}, {}]]
-)
-
-<span class="comment"># Sales trend line chart</span>
-monthly_sales = data.groupby(data[<span class="string">'date'</span>].dt.to_period(<span class="string">'M'</span>))[<span class="string">'revenue'</span>].sum()
-fig.add_trace(
-    go.Scatter(x=monthly_sales.index.astype(str), y=monthly_sales.values,
-               mode=<span class="string">'lines+markers'</span>, name=<span class="string">'Revenue'</span>),
-    row=1, col=1
-)
-
-<span class="comment"># Regional bar chart</span>
-regional_data = data.groupby(<span class="string">'region'</span>)[<span class="string">'revenue'</span>].sum()
-fig.add_trace(
-    go.Bar(x=regional_data.index, y=regional_data.values, name=<span class="string">'Regional Sales'</span>),
-    row=1, col=2
-)
-
-<span class="comment"># Update layout and show</span>
-fig.update_layout(height=600, showlegend=<span class="keyword">True</span>, title_text=<span class="string">"Sales Dashboard"</span>)
-fig.show()</pre>
-                                </div>
-                                
-                                <div id="dash-r" class="code-content">
-<pre><span class="comment"># R - Interactive Dashboard with Shiny</span>
-<span class="keyword">library</span>(shiny)
-<span class="keyword">library</span>(plotly)
-<span class="keyword">library</span>(dplyr)
-
-<span class="comment"># Load data</span>
-data <- read.csv(<span class="string">"sales_data.csv"</span>)
-data$date <- as.Date(data$date)
-
-<span class="comment"># Define UI</span>
-ui <- fluidPage(
-  titlePanel(<span class="string">"Sales Dashboard"</span>),
-  
-  sidebarLayout(
-    sidebarPanel(
-      selectInput(<span class="string">"region"</span>, <span class="string">"Select Region:"</span>,
-                  choices = c(<span class="string">"All"</span>, unique(data$region)),
-                  selected = <span class="string">"All"</span>)
-    ),
-    
-    mainPanel(
-      plotlyOutput(<span class="string">"salesTrend"</span>),
-      plotlyOutput(<span class="string">"regionalChart"</span>)
-    )
-  )
-)
-
-<span class="comment"># Define server logic</span>
-server <- function(input, output) {
-  
-  filtered_data <- reactive({
-    <span class="keyword">if</span> (input$region == <span class="string">"All"</span>) {
-      data
-    } <span class="keyword">else</span> {
-      data[data$region == input$region, ]
-    }
-  })
-  
-  output$salesTrend <- renderPlotly({
-    monthly_data <- filtered_data() %>%
-      group_by(month = format(date, <span class="string">"%Y-%m"</span>)) %>%
-      summarise(revenue = sum(revenue))
-    
-    p <- plot_ly(monthly_data, x = ~month, y = ~revenue, type = <span class="string">'scatter'</span>, mode = <span class="string">'lines+markers'</span>)
-    p
-  })
-}
-
-<span class="comment"># Run the application</span>
-shinyApp(ui = ui, server = server)</pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="data-processing" class="tab-content">
-            <div class="category-section">
-                <div class="category-header">
-                    <span class="category-icon">⚙️</span>
-                    <h2 class="category-title">Data Processing & Transformation</h2>
-                </div>
-
-                <div class="algorithm-grid">
-                    <div class="algorithm-card">
-                        <div class="card-header">
-                            <h3>Data Cleaning Pipeline</h3>
-                            <span class="complexity beginner">Beginner</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="use-case">
-                                <strong>Use Case:</strong> Cleaning messy customer data for analysis
-                            </div>
-                            
-                            <div class="code-example" style="display: none;">
-                                <div class="code-tabs">
-                                    <button class="code-tab active" data-target="clean-python">Python</button>
-                                    <button class="code-tab" data-target="clean-r">R</button>
-                                </div>
-                                
-                                <div id="clean-python" class="code-content active">
-<pre><span class="comment"># Python - Data Cleaning Pipeline</span>
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-
-<span class="comment"># Load raw data</span>
-df = pd.read_csv(<span class="string">'raw_customer_data.csv'</span>)
-
-<span class="function">print</span>(f<span class="string">'Original shape: {df.shape}'</span>)
-<span class="function">print</span>(f<span class="string">'Missing values:\n{df.isnull().sum()}'</span>)
-
-<span class="comment"># 1. Remove duplicates</span>
-df = df.drop_duplicates()
-
-<span class="comment"># 2. Handle missing values</span>
-<span class="comment"># Fill numerical missing values with median</span>
-numeric_columns = df.select_dtypes(include=[np.number]).columns
-df[numeric_columns] = df[numeric_columns].fillna(df[numeric_columns].median())
-
-<span class="comment"># Fill categorical missing values with mode</span>
-categorical_columns = df.select_dtypes(include=[<span class="string">'object'</span>]).columns
-<span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
-    df[col] = df[col].fillna(df[col].mode()[0])
-
-<span class="comment"># 3. Remove outliers using IQR method</span>
-<span class="keyword">def</span> <span class="function">remove_outliers</span>(df, column):
-    Q1 = df[column].quantile(0.25)
-    Q3 = df[column].quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    <span class="keyword">return</span> df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
-
-<span class="comment"># Apply outlier removal to revenue column</span>
-df = remove_outliers(df, <span class="string">'annual_revenue'</span>)
-
-<span class="comment"># 4. Standardize text data</span>
-df[<span class="string">'email'</span>] = df[<span class="string">'email'</span>].str.lower().str.strip()
-df[<span class="string">'name'</span>] = df[<span class="string">'name'</span>].str.title().str.strip()
-
-<span class="function">print</span>(f<span class="string">'Cleaned shape: {df.shape}'</span>)
-<span class="function">print</span>(<span class="string">'Data cleaning completed!'</span>)</pre>
-                                </div>
-                                
-                                <div id="clean-r" class="code-content">
-<pre><span class="comment"># R - Data Cleaning Pipeline</span>
-<span class="keyword">library</span>(dplyr)
-<span class="keyword">library</span>(stringr)
-
-<span class="comment"># Load raw data</span>
-df <- read.csv(<span class="string">"raw_customer_data.csv"</span>)
-
-<span class="function">cat</span>(<span class="string">"Original shape:"</span>, dim(df), <span class="string">"\n"</span>)
-<span class="function">cat</span>(<span class="string">"Missing values:\n"</span>)
-<span class="function">print</span>(sapply(df, function(x) sum(is.na(x))))
-
-<span class="comment"># 1. Remove duplicates</span>
-df <- df[!duplicated(df), ]
-
-<span class="comment"># 2. Handle missing values</span>
-<span class="comment"># Function to fill missing values</span>
-fill_missing <- function(x) {
-  <span class="keyword">if</span> (is.numeric(x)) {
-    x[is.na(x)] <- median(x, na.rm = <span class="keyword">TRUE</span>)
-  } <span class="keyword">else</span> {
-    mode_val <- names(sort(table(x), decreasing = <span class="keyword">TRUE</span>))[1]
-    x[is.na(x)] <- mode_val
-  }
-  <span class="keyword">return</span>(x)
-}
-
-df <- df %>% mutate_all(fill_missing)
-
-<span class="comment"># 3. Remove outliers using IQR method</span>
-remove_outliers <- function(x) {
-  Q1 <- quantile(x, 0.25, na.rm = <span class="keyword">TRUE</span>)
-  Q3 <- quantile(x, 0.75, na.rm = <span class="keyword">TRUE</span>)
-  IQR <- Q3 - Q1
-  lower <- Q1 - 1.5 * IQR
-  upper <- Q3 + 1.5 * IQR
-  x >= lower & x <= upper
-}
-
-<span class="comment"># Apply to annual_revenue</span>
-df <- df[remove_outliers(df$annual_revenue), ]
-
-<span class="comment"># 4. Standardize text data</span>
-df$email <- str_to_lower(str_trim(df$email))
-df$name <- str_to_title(str_trim(df$name))
-
-<span class="function">cat</span>(<span class="string">"Cleaned shape:"</span>, dim(df), <span class="string">"\n"</span>)
-<span class="function">cat</span>(<span class="string">"Data cleaning completed!\n"</span>)</pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="progress" class="tab-content">
-            <div class="progress-section">
-                <h2>Your Learning Progress</h2>
-                <div class="progress-circle"></div>
-                <p>18 of 30 algorithms mastered</p>
-                
-                <div class="skill-badges">
-                    <span class="skill-badge">Statistics Fundamentals ✓</span>
-                    <span class="skill-badge">Data Visualization ✓</span>
-                    <span class="skill-badge">Machine Learning</span>
-                    <span class="skill-badge">Time Series Analysis</span>
-                    <span class="skill-badge">Feature Engineering</span>
-                </div>
-            </div>
-
-            <div class="export-section">
-                <h3 style="color: white; margin-bottom: 20px;">Export Your Progress</h3>
-                <button class="export-btn" id="exportBtn">📄 Generate Learning Report</button>
-            </div>
-        </div>
-    </div>
-
-    <footer style="text-align:center; font-size:0.85rem; color:rgba(255,255,255,0.7); padding:30px 20px 40px;">
-        © 2026 Valesca Bravo — Interactive Lab
-    </footer>
-
-    <script>
-        // Initialize the library
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Data Analytics Learning Library loaded successfully!');
-            
-            // Tab navigation
-            const navTabs = document.querySelectorAll('.nav-tab');
-            navTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const targetTab = this.getAttribute('data-tab');
-                    
-                    // Hide all tab contents
-                    const tabContents = document.querySelectorAll('.tab-content');
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Remove active class from all nav tabs
-                    navTabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Show selected tab content
-                    document.getElementById(targetTab).classList.add('active');
-                    
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                });
-            });
-            
-            // Algorithm card click handlers
-            const algorithmCards = document.querySelectorAll('.algorithm-card');
-            algorithmCards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Don't toggle if clicking on code tabs
-                    if (e.target.classList.contains('code-tab')) return;
-                    
-                    const codeExample = card.querySelector('.code-example');
-                    if (codeExample) {
-                        if (codeExample.style.display === 'none' || codeExample.style.display === '') {
-                            codeExample.style.display = 'block';
-                        } else {
-                            codeExample.style.display = 'none';
-                        }
-                    }
-                });
-            });
-            
-            // Code tab click handlers
-            const codeTabs = document.querySelectorAll('.code-tab');
-            codeTabs.forEach(tab => {
-                tab.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Prevent card toggle
-                    
-                    const targetId = this.getAttribute('data-target');
-                    const parentCard = this.closest('.algorithm-card');
-                    
-                    // Hide all code contents in this card
-                    const codeContents = parentCard.querySelectorAll('.code-content');
-                    codeContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Remove active class from all tabs in this card
-                    const allTabs = parentCard.querySelectorAll('.code-tab');
-                    allTabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Show selected content and activate tab
-                    const targetContent = document.getElementById(targetId);
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                    }
-                    this.classList.add('active');
-                });
-            });
-
-            // Export button handler
-            const exportBtn = document.getElementById('exportBtn');
-            if (exportBtn) {
-                exportBtn.addEventListener('click', function() {
-                    const reportContent = `# Data Analytics Learning Progress Report
-
-## Overview
-- **Total Progress**: 18/30 algorithms mastered (60%)
-- **Current Level**: Intermediate
-- **Focus Areas**: Machine Learning, Advanced Statistics
-
-## Completed Modules
-### Statistics & Probability (6/8)
-✅ Linear Regression
-✅ Correlation Analysis
-✅ Hypothesis Testing
-✅ ANOVA
-✅ Chi-Square Tests
-✅ Confidence Intervals
-
-### Machine Learning (5/10)
-✅ Random Forest
-✅ K-Means Clustering
-✅ Logistic Regression
-✅ Decision Trees
-✅ Support Vector Machines
-
-### Data Visualization (4/6)
-✅ Interactive Dashboards
-✅ Correlation Heatmaps
-✅ Statistical Plots
-✅ Time Series Visualization
-
-### Data Processing (3/6)
-✅ Data Cleaning Pipelines
-✅ Feature Engineering
-✅ Time Series Analysis
-
-## Next Steps
-1. Complete Bayesian Analysis and Non-parametric Tests
-2. Learn Neural Networks and Deep Learning
-3. Master Geographic Mapping and Network Graphs
-4. Study Text Processing and NLP techniques
-
-## Recommendations
-- Focus on advanced machine learning algorithms
-- Practice with real-world datasets
-- Build end-to-end data science projects
-- Learn cloud deployment for models
-
-Generated on: ${new Date().toLocaleDateString()}`;
-                    
-                    const blob = new Blob([reportContent], { type: 'text/markdown' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'data-analytics-progress-report.md';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+features = data[[<span class="string">'annual_spend'</span>, <span class="string">'frequency
